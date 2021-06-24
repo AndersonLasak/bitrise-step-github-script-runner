@@ -64,24 +64,32 @@ toolkit:
 
 
 inputs:
-  - example_step_input: Default Value - you can leave this empty if you want to
+  - raw_file_path:
     opts:
-      title: "Example Step Input"
-      summary: Summary. No more than 2-3 sentences.
+      title: "The file raw path"
       description: |
-        Description of this input.
-
-        Can be Markdown formatted text.
+        The path should contain the owner, repository, branch and filename with its extension, like follow:\n\n
+        "https://raw.githubusercontent.com/{owner}/{repo}/{branch}/{file}"
       is_expand: true
       is_required: true
       value_options: []
-
-outputs:
-  - EXAMPLE_STEP_OUTPUT:
+  - run_script: "yes"
     opts:
-      title: "Example Step Output"
-      summary: Summary. No more than 2-3 sentences.
+      title: "Indicates that the downloaded file is a bash script that should be run"
       description: |
-        Description of this output.
-
-        Can be Markdown formatted text.
+        "yes" to run the bash script, "no" to just download the raw file.
+      is_expand: true
+      is_required: true
+      value_options:
+      - "no"
+      - "yes"
+  - github_access_token:
+    opts:
+      title: "The personal access token from your GitHub account"
+      description: |
+        For more information visit the official page:\n
+        https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token
+      is_expand: true
+      is_required: true
+      is_sensitive: true
+      value_options: []
