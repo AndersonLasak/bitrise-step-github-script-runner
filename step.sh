@@ -12,7 +12,18 @@ curl -H "Authorization: token $github_access_token" \
   -O \
   -L "$raw_file_path"
 
+content=$(<$file_name)
+if [ "$content" = "404: Not Found" ]; then
+    echo "Download failed!"
+    echo "Verify the file path and GitHub Personal Access Token!"
+    rm $file_name
+    exit 1
+else
+    echo "Download finished!"
+fi
+
 if [ "$run_script" = "yes" ]; then
+    echo "Running script '$file_name'..."
     bash ./$file_name
 fi
 
