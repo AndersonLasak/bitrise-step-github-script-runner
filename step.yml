@@ -1,7 +1,6 @@
 title: |-
   GitHub Script Runner
-summary: |
-  Downloads and Runs a bash script stored on a private GitHub repo.
+summary: Downloads and Runs a bash script stored on a private GitHub repo.
 description: |
   Downloads and Runs a bash script stored on a private GitHub repo.
 
