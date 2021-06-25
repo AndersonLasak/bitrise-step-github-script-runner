@@ -1,18 +1,30 @@
-#
-# A couple of useful guides & docs:
-#
-# - Main Bitrise CLI docs: https://github.com/bitrise-io/bitrise/tree/master/_docs
-# - Step Development Guideline: https://github.com/bitrise-io/bitrise/blob/master/_docs/step-development-guideline.md
-# - Bitrise.yml format spec: https://github.com/bitrise-io/bitrise/blob/master/_docs/bitrise-yml-format-spec.md
-# - Bitrise docs: http://devcenter.bitrise.io/
-# - Bitrise CLI guides: http://devcenter.bitrise.io/bitrise-cli/
-
 title: |-
   GitHub Script Runner
 summary: |
   Downloads and Runs a bash script stored on a private GitHub repo.
 description: |
   Downloads and Runs a bash script stored on a private GitHub repo.
+
+  ### Configuring the Step
+
+  Before using the step, you need to push your bash script into a private GitHub repository and set up a GitHub personal access token with read permission on the same repository.
+
+  1. The "file raw path" param expects the full path of the script file
+  "https://raw.githubusercontent.com/{owner}/{repo}/{branch}/{file}"
+
+  2. The "run script" param indicates that the script should be run after the download
+  "yes" to run the bash script and "no" to just download the raw file
+
+  3. The "github access token" param must be a Bitrise Secret config
+
+  ### Troubleshooting
+
+  If the Step fails, check if the given GitHub Personal Access Token has read permission on the script's repository.
+
+  ### Useful links
+
+  https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token
+
 website: https://github.com/AndersonLasak/bitrise-step-github-script-runner
 source_code_url: https://github.com/AndersonLasak/bitrise-step-github-script-runner
 support_url: https://github.com/AndersonLasak/bitrise-step-github-script-runner/issues
@@ -20,40 +32,21 @@ host_os_tags:
   - osx-10.10
   - ubuntu-16.04
 
-# If this step should be available only for certain project types
-# just uncomment this `project_type_tags` section and include all the
-# project types supported by the step. If the step can be used for all
-# project types then you can just remove this section.
-# If no `project_type_tags` specified (or specified as an empty array)
-# that means the step can be used for any project type.
-# You can find more information about project type tags in the Step Development Guideline:
-# https://github.com/bitrise-io/bitrise/blob/master/_docs/step-development-guideline.md
-#
-# project_type_tags:
-#   - ios
-#   - macos
-#   - android
-#   - xamarin
-#   - react-native
-#   - cordova
-#   - ionic
-
-# Type tags are used for categorizing steps, for easier step discovery in Step Libraries.
-# You can find more information about type tags in the Step Development Guideline:
-# https://github.com/bitrise-io/bitrise/blob/master/_docs/step-development-guideline.md
 type_tags:
   - utility
 
-is_requires_admin_user: true
+is_requires_admin_user: false
 is_always_run: false
 is_skippable: false
 run_if: ""
-
 
 toolkit:
   bash:
     entry_file: step.sh
 
+deps:
+  brew:
+  - name: curl
 
 inputs:
   - raw_file_path:
@@ -67,9 +60,9 @@ inputs:
       value_options: []
   - run_script: "yes"
     opts:
-      title: "Indicates that the downloaded file is a bash script that should be run"
+      title: "Field that says if the script should be run"
       description: |
-        "yes" to run the bash script, "no" to just download the raw file.
+        Indicates if the downloaded file is a bash script that should be run, use "yes" to run the bash script and "no" to just download the raw file.
       is_expand: true
       is_required: true
       value_options:
@@ -79,6 +72,7 @@ inputs:
     opts:
       title: "The personal access token from your GitHub account"
       description: |
+        A personal access token is required to download the raw file via GitHub v3 API.\n\n
         For more information visit the official page:\n
         https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token
       is_expand: true

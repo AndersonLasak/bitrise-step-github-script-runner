@@ -2,6 +2,26 @@
 
 Downloads and Runs a bash script stored on a private GitHub repo.
 
+### Configuring the Step
+
+Before using the step, you need to push your bash script into a private GitHub repository and set up a GitHub personal access token with read permission on the same repository.
+
+1. The "file raw path" param expects the full path of the script file
+- _`https://raw.githubusercontent.com/{owner}/{repo}/{branch}/{file}`_
+
+2. The "run script" param indicates that the script should be run after the download
+- _"yes"_ to run the bash script and _"no"_ to just download the raw file
+
+3. The "github access token" param must be a [Bitrise Secret](https://devcenter.bitrise.io/bitrise-cli/secrets/) config
+
+### Troubleshooting
+
+If the Step fails, check if the given GitHub Personal Access Token has read permission on the script's repository.
+
+### Useful links
+
+https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token
+
 ## How to use this Step
 
 Can be run directly with the [bitrise CLI](https://github.com/bitrise-io/bitrise),
