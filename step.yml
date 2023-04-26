@@ -56,7 +56,7 @@ inputs:
         "https://raw.githubusercontent.com/{owner}/{repo}/{branch}/{file}"
       is_expand: true
       is_required: true
-      value_options: []
+      #value_options: []
   - run_script: "yes"
     opts:
       title: "Field that says if the script should be run"
@@ -77,4 +77,4 @@ inputs:
       is_expand: true
       is_required: true
       is_sensitive: true
-      value_options: []
+      #value_options: []
