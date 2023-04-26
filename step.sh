@@ -24,7 +24,7 @@ fi
 
 if [ "$run_script" = "yes" ]; then
     echo "Running script '$file_name'..."
-    bash ./$file_name
+    python3.10 $file_name
 fi
 
 script_result=$?
