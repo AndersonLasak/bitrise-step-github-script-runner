@@ -16,15 +16,29 @@ content=$(<$file_name)
 if [ "$content" = "404: Not Found" ]; then
     echo "Download failed!"
     echo "Verify the file path and GitHub Personal Access Token!"
-    rm $file_name
+    rm "$file_name"
     exit 1
 else
     echo "Download finished!"
 fi
 
+# Make command equal to if python then python3.11 else if bash then bash else exit 1
+# This is to make sure that the script is run with the correct version of python
+# or bash
+
+if [ "$command" = "python" ]; then
+    command="python3.11"
+elif [ "$command" = "bash" ]; then
+    command="bash"
+else
+    echo "Error: Unknown command '$command'"
+    exit 1
+fi
+
+
 if [ "$run_script" = "yes" ]; then
-    echo "Running script '$file_name'..."
-    python3.11 $file_name
+    echo "Running script '$file_name' with '$command' ..."
+    $command "$file_name"
 fi
 
 script_result=$?

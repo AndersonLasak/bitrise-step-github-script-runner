@@ -1,4 +1,4 @@
-format_version: 4
+format_version: '4'
 default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 
 app:
@@ -7,25 +7,28 @@ app:
   - TEST_GITHUB_SCRIPT_FILE_RAW_PATH: $TEST_GITHUB_SCRIPT_FILE_RAW_PATH
   - TEST_RUN_SCRIPT: $TEST_RUN_SCRIPT
   - TEST_GITHUB_PERSONAL_ACCESS_TOKEN: "$TEST_GITHUB_PERSONAL_ACCESS_TOKEN"
+  - TEST_COMMAND: "$TEST_COMMAND"
 
 workflows:
   test:
     steps:
-    - path::./:
-        title: Step Test
-        is_skippable: false
-        inputs:
-        - raw_file_path: "$TEST_GITHUB_SCRIPT_FILE_RAW_PATH"
-        - run_script: "$TEST_RUN_SCRIPT"
-        - github_access_token: "$TEST_GITHUB_PERSONAL_ACCESS_TOKEN"
+      - path::./:
+          title: Step Test
+          is_skippable: false
+          inputs:
+            - raw_file_path: "$TEST_GITHUB_SCRIPT_FILE_RAW_PATH"
+            - run_script: "$TEST_RUN_SCRIPT"
+            - github_access_token: "$TEST_GITHUB_PERSONAL_ACCESS_TOKEN"
+            - command: "$TEST_COMMAND"
+
 
   # ----------------------------------------------------------------
   # --- workflows to Share this step into a Step Library
   audit-this-step:
     steps:
-    - script:
-        inputs:
-        - content: |-
-            #!/bin/bash
-            set -ex
-            stepman audit --step-yml ./step.yml
+      - script:
+          inputs:
+            - content: |-
+                #!/bin/bash
+                set -ex
+                stepman audit --step-yml ./step.yml

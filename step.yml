@@ -65,8 +65,18 @@ inputs:
       is_expand: true
       is_required: true
       value_options:
-      - "no"
-      - "yes"
+        - "no"
+        - "yes"
+  - command: "python"
+    opts:
+      title: "Field that says whether to use Python or Bash"
+      description: |
+        Indicates whether to run this using Python or Bash
+      is_expand: true
+      is_required: true
+      value_options:
+        - "python"
+        - "bash"
   - github_access_token:
     opts:
       title: "The personal access token from your GitHub account"
